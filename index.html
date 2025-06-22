@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kavin Vetrivel </title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="#home">KV_DEV</a>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#home" class="nav-link">home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#about" class="nav-link">about</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#skills" class="nav-link">skills</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#projects" class="nav-link">projects</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#contact" class="nav-link">contact</a>
+                </li>
+                <li class="nav-item">
+                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark/light theme">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Home Section -->
+    <section id="home" class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1 class="hero-title" id="greeting">
+                        Hi, I'm Kavin Vetrivel
+                    </h1>
+                    <p class="hero-subtitle">
+                        Aspiring AIML student passionate about solving real-world problems through code.
+                    </p>
+                    <p class="hero-tagline">
+                        "Building small things, dreaming big."
+                    </p>
+                    <div class="hero-buttons">
+                        <a href="#projects" class="btn btn-primary">
+                            <i class="fas fa-code"></i>
+                            View My Work
+                        </a>
+                        <a href="#contact" class="btn btn-secondary">
+                            <i class="fas fa-paper-plane"></i>
+                            Get In Touch
+                        </a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <div class="profile-placeholder">
+                        <i class="fas fa-user-code"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>
+                        /* I'm a passionate B.E CSE AIML student in my third year, deeply interested in problem solving
+                        and machine learning. I love exploring new technologies and solving complex problems through code. 
+                        When I'm not coding, you can find me learning new programming languages or working on personal projects. */
+                    </p>
+                    <div class="about-details">
+                        <div class="detail-item">
+                            <h3>Education</h3>
+                            <p>B.E in Computer Science specializing in Artificial Intelligence & Machine Learning (3rd Year)</p>
+                        </div>
+                        <div class="detail-item">
+                            <h3>Interests</h3>
+                            <p>Learning New Technologies, Problem Solving, Cyber Security, Machine Learning</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="skills">
+        <div class="container">
+            <h2 class="section-title">Skills</h2>
+            <div class="skills-content">
+                <div class="skills-category">
+                    <h3>Programming Languages</h3>
+                    <div class="skills-grid">
+                        <div class="skill-item" data-skill="Python">
+                            <i class="fab fa-python"></i>
+                            <span>Python</span>
+                        </div>
+                        <div class="skill-item" data-skill="C">
+                            <i class="fas fa-code"></i>
+                            <span>C</span>
+                        </div>
+                        <div class="skill-item" data-skill="HTML">
+                            <i class="fab fa-html5"></i>
+                            <span>HTML</span>
+                        </div>
+                        <div class="skill-item" data-skill="CSS">
+                            <i class="fab fa-css3-alt"></i>
+                            <span>CSS</span>
+                        </div>
+                        <div class="skill-item" data-skill="Java">
+                            <i class="fab fa-java"></i>
+                            <span>Java (Basics)</span>
+                        </div>
+                        <div class="skill-item" data-skill="SQL">
+                            <i class="fas fa-database"></i>
+                            <span>SQL</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="skills-category">
+                    <h3>Technologies & Tools</h3>
+                    <div class="skills-grid">
+                        <div class="skill-item" data-skill="Git">
+                            <i class="fab fa-git-alt"></i>
+                            <span>Git</span>
+                        </div>
+                        <div class="skill-item" data-skill="VSCode">
+                            <i class="fas fa-code"></i>
+                            <span>VSCode</span>
+                        </div>
+                        <div class="skill-item" data-skill="Jupyter">
+                            <i class="fas fa-book"></i>
+                            <span>Jupyter</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="skills-category">
+                    <h3>Areas of Interest</h3>
+                    <div class="skills-grid">
+                        <div class="skill-item" data-skill="Problem Solving">
+                            <i class="fas fa-puzzle-piece"></i>
+                            <span>Problem Solving</span>
+                        </div>
+                        <div class="skill-item" data-skill="Machine Learning">
+                            <i class="fas fa-brain"></i>
+                            <span>Machine Learning</span>
+                        </div>
+                        <div class="skill-item" data-skill="Cyber Security">
+                            <i class="fas fa-brain"></i>
+                            <span>Cyber Security</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+        <div class="container">
+            <h2 class="section-title">Projects</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-image">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3>Personal Portfolio Website</h3>
+                        <p>A responsive portfolio website built with HTML, CSS, and JavaScript featuring modern design and smooth animations.</p>
+                        <div class="project-tags">
+                            <span class="tag">HTML</span>
+                            <span class="tag">CSS</span>
+                            <span class="tag">JavaScript</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="btn btn-small">View Live</a>
+                            <a href="#" class="btn btn-small btn-outline">GitHub</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-image">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3>Calculator App</h3>
+                        <p>// A simple calculator application with basic arithmetic operations and a clean user interface.</p>
+                        <div class="project-tags">
+                            <span class="tag">Python</span>
+                            <span class="tag">Tkinter</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="btn btn-small">View Live</a>
+                            <a href="#" class="btn btn-small btn-outline">GitHub</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-image">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3>ML Project (Coming Soon)</h3>
+                        <p>// An exciting machine learning project that I'm currently working on. More details coming soon!</p>
+                        <div class="project-tags">
+                            <span class="tag">Python</span>
+                            <span class="tag">Machine Learning</span>
+                            <span class="tag">Jupyter</span>
+                        </div>
+                        <div class="project-links">
+                            <span class="btn btn-small btn-disabled">Coming Soon</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Resume Section -->
+    <section id="resume" class="resume">
+        <div class="container">
+            <h2 class="section-title">Resume</h2>
+            <div class="resume-content">
+                <p>Download my resume to learn more about my experience and qualifications.</p>
+                <a href="resume.pdf" class="btn btn-primary" download>
+                    <i class="fas fa-download"></i>
+                    Download Resume
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h3>Email</h3>
+                            <a href="mailto:vetrivelkavin5@gmail.com">vetrivelkavin5@gmail.com</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fab fa-linkedin"></i>
+                        <div>
+                            <h3>LinkedIn</h3>
+                            <a href="https://www.linkedin.com/in/kavin-vetrivel-6a119928a/" target="_blank" rel="noopener">linkedin.com/in/kavin-vetrivel</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fab fa-github"></i>
+                        <div>
+                            <h3>GitHub</h3>
+                            <a href="https://github.com/KavinVetrivel" target="_blank" rel="noopener">github.com/kavin-vetrivel</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <input type="text" id="name" name="name" placeholder="// Your Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="email" name="email" placeholder="// Your Email" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="message" name="message" placeholder="// Your Message" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-paper-plane"></i>
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Kavin Vetrivel. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Custom Cursor -->
+    <div class="custom-cursor"></div>
+    <div class="custom-cursor-follower"></div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
