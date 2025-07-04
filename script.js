@@ -477,59 +477,30 @@ function addSyntaxHighlighting() {
     });
 }
 
-// Multilingual greeting effect
-const greetings = [
-    "Hi, I'm Kavin Vetrivel",           // English
-    "Hola, soy Kavin Vetrivel",         // Spanish
-    "Bonjour, je suis Kavin Vetrivel",  // French
-    "Hallo, ich bin Kavin Vetrivel",    // German
-    "Ciao, sono Kavin Vetrivel",        // Italian
-    "こんにちは、カビン・ヴェトリヴェルです", // Japanese
-    "नमस्ते, मैं Kavin Vetrivel हूँ",      // Hindi
-    "你好，我是Kavin Vetrivel",            // Chinese (Simplified)
-];
+// Remove greetings array and cycleGreeting, replace with single typing effect for English only
 
-function cycleGreeting() {
+function showEnglishGreeting() {
     const greetingEl = document.getElementById('greeting');
     if (!greetingEl) return;
-    let idx = 1; // Start cycling from the second greeting after English
-    
-    function typeGreeting(text, cb) {
-        greetingEl.textContent = '';
+    const text = "Hi, I'm Kavin Vetrivel";
+    if (greetingTypingTimeout) {
+        clearTimeout(greetingTypingTimeout);
+        greetingTypingTimeout = null;
+    }
+    greetingEl.textContent = '';
+    // Add a 1 second delay before typing
+    setTimeout(() => {
         greetingEl.style.opacity = '1';
         let i = 0;
         function type() {
             if (i < text.length) {
                 greetingEl.textContent += text.charAt(i);
                 i++;
-                setTimeout(type, 100);
-            } else if (cb) {
-                cb();
+                greetingTypingTimeout = setTimeout(type, 100);
             }
         }
         type();
-    }
-    
-    function showNextGreeting() {
-        greetingEl.style.opacity = '0';
-        setTimeout(() => {
-            typeGreeting(greetings[idx], () => {
-                setTimeout(() => {
-                    idx = (idx + 1) % greetings.length;
-                    showNextGreeting();
-                }, 1200);
-            });
-        }, 400);
-    }
-    
-    // Wait for initial page load to complete, then start the cycling effect
-    setTimeout(() => {
-        // Make the greeting visible and start with English greeting using typing effect
-        greetingEl.style.opacity = '1';
-        typeGreeting(greetings[0], () => {
-            setTimeout(showNextGreeting, 3000);
-        });
-    }, 2000); // Wait 2 seconds before starting the cycling effect
+    }, 1000);
 }
 
 // Initialize all functionality
@@ -569,8 +540,8 @@ function init() {
     addParallaxEffect();
     addSyntaxHighlighting();
     
-    // Initialize typing effect after a delay
-    setTimeout(initTypingEffect, 500);
+    // Initialize typing effect after a delay - REMOVED to prevent conflict with cycleGreeting
+    // setTimeout(initTypingEffect, 500);
     
     // Add loading animation
     document.body.style.opacity = '0';
@@ -583,7 +554,7 @@ function init() {
     addTerminalStartupEffect();
 
     // Start greeting cycle
-    cycleGreeting();
+    showEnglishGreeting();
 }
 
 // Terminal startup effect

@@ -166,7 +166,7 @@ Feel free to fork this project and customize it for your own portfolio!
 ## 📞 Contact
 
 - **Name**: Kavin Vetrivel
-- **Email**: kavin.vetrivel@example.com
+- **Email**: vetrivelkavin5@gmail.com
 - **LinkedIn**: linkedin.com/in/kavin-vetrivel
 - **GitHub**: github.com/kavin-vetrivel
 
