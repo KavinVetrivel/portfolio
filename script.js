@@ -493,6 +493,7 @@ function cycleGreeting() {
     const greetingEl = document.getElementById('greeting');
     if (!greetingEl) return;
     let idx = 1; // Start cycling from the second greeting after English
+    
     function typeGreeting(text, cb) {
         greetingEl.textContent = '';
         greetingEl.style.opacity = '1';
@@ -508,6 +509,7 @@ function cycleGreeting() {
         }
         type();
     }
+    
     function showNextGreeting() {
         greetingEl.style.opacity = '0';
         setTimeout(() => {
@@ -519,10 +521,15 @@ function cycleGreeting() {
             });
         }, 400);
     }
-    // Start with English greeting using typing effect
-    typeGreeting(greetings[0], () => {
-        setTimeout(showNextGreeting, 3000);
-    });
+    
+    // Wait for initial page load to complete, then start the cycling effect
+    setTimeout(() => {
+        // Make the greeting visible and start with English greeting using typing effect
+        greetingEl.style.opacity = '1';
+        typeGreeting(greetings[0], () => {
+            setTimeout(showNextGreeting, 3000);
+        });
+    }, 2000); // Wait 2 seconds before starting the cycling effect
 }
 
 // Initialize all functionality

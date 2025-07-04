@@ -246,6 +246,7 @@ body {
     margin-bottom: 1rem;
     line-height: 1.2;
     font-family: 'JetBrains Mono', monospace;
+    transition: opacity 0.5s ease;
 }
 
 .highlight {
