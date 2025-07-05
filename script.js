@@ -462,7 +462,8 @@ function addParallaxEffect() {
 
 // Code syntax highlighting effect
 function addSyntaxHighlighting() {
-    const codeElements = document.querySelectorAll('p, .hero-subtitle, .hero-tagline');
+    // Only apply syntax highlighting to elements that actually contain code
+    const codeElements = document.querySelectorAll('.hero-subtitle, .hero-tagline');
     
     codeElements.forEach(element => {
         const text = element.innerHTML;
