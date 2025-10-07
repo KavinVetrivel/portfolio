@@ -7,6 +7,76 @@ const contactForm = document.getElementById('contactForm');
 const customCursor = document.querySelector('.custom-cursor');
 const customCursorFollower = document.querySelector('.custom-cursor-follower');
 
+
+const EMAILJS_CONFIG = {
+    enabled: true,
+    serviceID: 'service_13zk371',
+    templateID: 'template_1otc46m',
+    publicKey: '64GlLKBBlCMQ1oqgg' // also called user ID / public key in EmailJS
+};
+
+let emailjsReady = false;
+
+function loadEmailJSSDKAndInit() {
+    if (!EMAILJS_CONFIG.enabled) return;
+    // Avoid loading twice
+    if (window.emailjs) {
+        try { window.emailjs.init(EMAILJS_CONFIG.publicKey); emailjsReady = true; } catch (e) { /* ignore */ }
+        return;
+    }
+    // Try a list of known CDN URLs for EmailJS SDK for better reliability
+    const urls = [
+        'https://cdn.emailjs.com/sdk/3.2.0/email.min.js',
+        'https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js'
+    ];
+
+    function loadScript(url) {
+        return new Promise((resolve, reject) => {
+            const s = document.createElement('script');
+            s.src = url;
+            s.async = true;
+            s.onload = () => resolve(url);
+            s.onerror = () => reject(new Error('Failed to load ' + url));
+            document.head.appendChild(s);
+            // Safety timeout in case onerror doesn't fire
+            setTimeout(() => {
+                if (!window.emailjs) {
+                    reject(new Error('Timeout loading ' + url));
+                }
+            }, 8000);
+        });
+    }
+
+    // Attempt URLs sequentially
+    (async () => {
+        for (const u of urls) {
+            try {
+                await loadScript(u);
+                if (window.emailjs && window.emailjs.init) {
+                    try {
+                        window.emailjs.init(EMAILJS_CONFIG.publicKey);
+                        emailjsReady = true;
+                        console.info('EmailJS SDK loaded from', u);
+                        return;
+                    } catch (initErr) {
+                        console.error('EmailJS init error', initErr);
+                        emailjsReady = false;
+                        // continue to next URL
+                    }
+                }
+            } catch (err) {
+                console.warn(err.message);
+                // try next URL
+            }
+        }
+
+        // If we get here, all attempts failed
+        emailjsReady = false;
+        console.error('Failed to load EmailJS SDK from known CDNs. Contact form will fallback to mailto/copy.');
+        showTerminalNotification('EmailJS SDK failed to load — contact form will use mail client fallback.', 'error');
+    })();
+}
+
 // Theme Management
 let currentTheme = localStorage.getItem('theme') || 'dark'; // Default to dark theme for developer look
 document.documentElement.setAttribute('data-theme', currentTheme);
@@ -216,9 +286,138 @@ function handleContactForm(e) {
         return;
     }
     
-    // Simulate form submission with terminal effect
-    showTerminalNotification('Message sent successfully! I\'ll get back to you soon.', 'success');
-    contactForm.reset();
+    // If EmailJS is enabled, try SDK first, then REST API; otherwise fallback to mailto/copy.
+    if (EMAILJS_CONFIG.enabled) {
+        const templateParams = {
+            from_name: name,
+            from_email: email,
+            message: message
+        };
+
+        // Try SDK send if ready
+        if (emailjsReady && window.emailjs && window.emailjs.send) {
+            window.emailjs.send(EMAILJS_CONFIG.serviceID, EMAILJS_CONFIG.templateID, templateParams)
+                .then((resp) => {
+                    showTerminalNotification('Message sent successfully via EmailJS. Thank you!', 'success');
+                    contactForm.reset();
+                }, (err) => {
+                    console.error('EmailJS SDK send error:', err);
+                    showTerminalNotification('EmailJS SDK failed to send. Trying REST API...', 'error');
+                    // try REST fallback
+                    sendViaEmailJSRest(templateParams).catch(() => fallbackToMail(name, email, message));
+                });
+            return;
+        }
+
+        // SDK not available — try REST API fallback
+        sendViaEmailJSRest(templateParams).catch(() => {
+            showTerminalNotification('EmailJS REST send failed. Falling back to mail client.', 'error');
+            fallbackToMail(name, email, message);
+        });
+        return;
+    }
+
+    // EmailJS not enabled — fallback to mailto/copy behavior
+    fallbackToMail(name, email, message);
+}
+
+// Send via EmailJS REST API (no SDK). Returns a Promise.
+function sendViaEmailJSRest(templateParams) {
+    return new Promise((resolve, reject) => {
+        if (!EMAILJS_CONFIG.serviceID || !EMAILJS_CONFIG.templateID || !EMAILJS_CONFIG.publicKey) {
+            return reject(new Error('EmailJS configuration missing service/template/public key'));
+        }
+
+        const url = 'https://api.emailjs.com/api/v1.0/email/send';
+        const payload = {
+            service_id: EMAILJS_CONFIG.serviceID,
+            template_id: EMAILJS_CONFIG.templateID,
+            user_id: EMAILJS_CONFIG.publicKey,
+            template_params: templateParams
+        };
+
+        fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        }).then(response => {
+            if (response.ok) {
+                showTerminalNotification('Message sent successfully via EmailJS (REST). Thank you!', 'success');
+                contactForm.reset();
+                resolve();
+            } else {
+                response.text().then(text => {
+                    console.error('EmailJS REST error:', response.status, text);
+                });
+                reject(new Error('EmailJS REST responded with error'));
+            }
+        }).catch(err => {
+            console.error('EmailJS REST fetch error:', err);
+            reject(err);
+        });
+    });
+}
+
+function fallbackToMail(name, email, message) {
+    const toEmail = 'vetrivelkavin5@gmail.com';
+    const subject = `Portfolio Contact from ${name}`;
+    const bodyLines = [
+        `Name: ${name}`,
+        `Email: ${email}`,
+        '',
+        message
+    ];
+    const body = bodyLines.join('\n');
+
+    const mailto = `mailto:${encodeURIComponent(toEmail)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    const opened = openMailClient(mailto);
+
+    if (opened) {
+        showTerminalNotification('Opened your email client with a prefilled message. Please send it to finish.', 'info');
+        contactForm.reset();
+    } else {
+        const fallbackText = `To: ${toEmail}\nSubject: ${subject}\n\n${body}`;
+        copyToClipboard(fallbackText).then(() => {
+            showTerminalNotification('Could not open an email client. Message copied to clipboard — you can paste it into your email app.', 'error');
+        }).catch(() => {
+            showTerminalNotification('Could not open an email client or copy to clipboard. Please email: ' + toEmail, 'error');
+        });
+    }
+}
+
+// Try to open the mail client by navigating to a mailto: URL. Returns true if
+// navigation was initiated (best-effort); otherwise false.
+function openMailClient(mailtoUrl) {
+    try {
+        // Use location.href which works in most browsers and avoids popup blockers
+        window.location.href = mailtoUrl;
+        return true;
+    } catch (err) {
+        return false;
+    }
+}
+
+// Copy text to clipboard (returns a Promise)
+function copyToClipboard(text) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        return navigator.clipboard.writeText(text);
+    }
+    return new Promise((resolve, reject) => {
+        const textarea = document.createElement('textarea');
+        textarea.value = text;
+        textarea.style.position = 'fixed';
+        textarea.style.left = '-9999px';
+        document.body.appendChild(textarea);
+        textarea.select();
+        try {
+            const ok = document.execCommand('copy');
+            document.body.removeChild(textarea);
+            if (ok) resolve(); else reject();
+        } catch (e) {
+            document.body.removeChild(textarea);
+            reject(e);
+        }
+    });
 }
 
 function isValidEmail(email) {
@@ -449,15 +648,18 @@ function initTypingEffect() {
 
 // Parallax Effect for Hero Section
 function addParallaxEffect() {
+    // Use a very subtle background-position parallax so we don't transform the
+    // entire hero element (which caused layout shifts and overlapped the
+    // fixed navbar on some screens).
+    const hero = document.querySelector('.hero');
+    if (!hero) return;
+
     window.addEventListener('scroll', () => {
         const scrolled = window.pageYOffset;
-        const hero = document.querySelector('.hero');
-        const rate = scrolled * -0.5;
-        
-        if (hero) {
-            hero.style.transform = `translateY(${rate}px)`;
-        }
-    });
+        // Compute a small offset for background position
+        const yPos = Math.min(scrolled * 0.1, 100);
+        hero.style.backgroundPosition = `center ${yPos}px`;
+    }, { passive: true });
 }
 
 // Code syntax highlighting effect
@@ -561,6 +763,9 @@ function init() {
     addProjectCardEffects();
     addParallaxEffect();
     addSyntaxHighlighting();
+
+    // Prepare EmailJS SDK if configured
+    loadEmailJSSDKAndInit();
     
     // Initialize typing effect after a delay - REMOVED to prevent conflict with cycleGreeting
     // setTimeout(initTypingEffect, 500);
@@ -650,8 +855,8 @@ document.addEventListener('DOMContentLoaded', () => {
 function createParticles() {
     const hero = document.querySelector('.hero');
     if (!hero) return;
-    
-    for (let i = 0; i < 30; i++) {
+    // Reduce particle count to avoid excessive DOM elements and visual clutter
+    for (let i = 0; i < 8; i++) {
         const particle = document.createElement('div');
         particle.className = 'particle';
         particle.style.cssText = `

@@ -249,6 +249,12 @@ body {
     transition: opacity 0.5s ease;
 }
 
+/* Greeting element starts hidden and is revealed by JS typing/cycle */
+#greeting {
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
 .hero_name {
     font-size: 3rem;
     font-weight: 800;
