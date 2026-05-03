@@ -433,6 +433,29 @@ body {
     margin-top: 20px;
 }
 
+/* Profile image styling - fits the right-side code box */
+.profile-placeholder .profile-img,
+.profile-placeholder img {
+    position: absolute;
+    top: 30px; /* sits below the faux window bar */
+    left: 0;
+    width: 100%;
+    height: calc(100% - 30px);
+    object-fit: cover;
+    display: block;
+    border-radius: 0 0 6px 6px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.03);
+    transition: transform 0.4s ease, filter 0.4s ease;
+    filter: saturate(0.98) contrast(0.98);
+}
+
+.profile-placeholder:hover .profile-img {
+    transform: translateY(-6px) scale(1.02);
+    filter: saturate(1.05) contrast(1);
+}
+
+.profile-placeholder i { display: none; }
+
 @keyframes float {
     0%, 100% { transform: translateY(0px); }
     50% { transform: translateY(-20px); }
