@@ -18,7 +18,7 @@ export default function Contact() {
           </p>
           
           <div className="mt-8" id="resume">
-             <a href="/Kavin_Vetrivel_Resume_General.pdf" download className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-secondary text-foreground font-medium hover:bg-[#C3E41D] hover:text-black transition-colors border border-border">
+             <a href="/Kavin_Vetrivel_Resume.pdf" download className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-secondary text-foreground font-medium hover:bg-[#C3E41D] hover:text-black transition-colors border border-border">
                <FileDown className="w-5 h-5" /> Download Resume
              </a>
           </div>

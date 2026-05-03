@@ -1,37 +1,40 @@
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import Hero from './components/Hero'
 import About from './components/About'
 import Skills from './components/Skills'
 import Projects from './components/Projects'
 import Contact from './components/Contact'
 import Dither from './components/Dither'
+import StaggeredMenu from './components/StaggeredMenu'
+
+const navItems = [
+  { label: 'Home', link: '#hero', ariaLabel: 'Home' },
+  { label: 'About', link: '#about', ariaLabel: 'About' },
+  { label: 'Skills', link: '#skills', ariaLabel: 'Skills' },
+  { label: 'Projects', link: '#projects', ariaLabel: 'Projects' },
+  { label: 'Contact', link: '#contact', ariaLabel: 'Contact' }
+];
+
+const socialItems = [
+  { label: 'GitHub', link: 'https://github.com' },
+  { label: 'LinkedIn', link: 'https://linkedin.com' },
+  { label: 'Twitter', link: 'https://twitter.com' }
+];
 
 function App() {
-  const [isDark, setIsDark] = useState(true);
-
   useEffect(() => {
     document.documentElement.classList.add("dark");
   }, []);
-
-  const toggleTheme = () => {
-    const newTheme = !isDark;
-    setIsDark(newTheme);
-    if (newTheme) {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-  };
 
   return (
     <div className="text-foreground min-h-screen relative overflow-hidden transition-colors">
       {/* Fixed Dither Background */}
       <div 
         className="fixed inset-0 z-0 opacity-40 dark:opacity-60 pointer-events-auto"
-        style={{ backgroundColor: isDark ? "hsl(0 0% 0%)" : "hsl(0 0% 98%)" }}
+        style={{ backgroundColor: "hsl(0 0% 0%)" }}
       >
         <Dither
-          waveColor={isDark ? [0.4, 0.4, 0.4] : [0.7, 0.7, 0.7]}
+          waveColor={[0.4, 0.4, 0.4]}
           disableAnimation={false}
           enableMouseInteraction={true}
           mouseRadius={0.3}
@@ -44,7 +47,21 @@ function App() {
 
       {/* Content wrapper */}
       <div className="relative z-10">
-        <Hero isDark={isDark} toggleTheme={toggleTheme} />
+        <StaggeredMenu 
+          position="right"
+          items={navItems}
+          socialItems={socialItems}
+          displaySocials={true}
+          displayItemNumbering={true}
+          menuButtonColor="#ffffff"
+          openMenuButtonColor="#111111"
+          changeMenuColorOnOpen={true}
+          colors={['#C3E41D', '#1a1a1a']}
+          logoUrl=""
+          accentColor="#C3E41D"
+          isFixed={true}
+        />
+        <Hero />
         <About />
         <Skills />
         <Projects />

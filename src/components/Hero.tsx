@@ -1,22 +1,5 @@
 import React, { useState, useEffect, useRef, useMemo } from "react";
-import { Menu, X, ChevronDown } from "lucide-react";
-
-
-// Inline Button component
-const Button = React.forwardRef<HTMLButtonElement, React.ButtonHTMLAttributes<HTMLButtonElement>>(
-  ({ className = "", children, ...props }, ref) => {
-    return (
-      <button
-        ref={ref}
-        className={`inline-flex items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors ${className}`}
-        {...props}
-      >
-        {children}
-      </button>
-    );
-  }
-);
-Button.displayName = "Button";
+import { ChevronDown } from "lucide-react";
 
 // BlurText animation component
 interface BlurTextProps {
@@ -85,126 +68,14 @@ const BlurText: React.FC<BlurTextProps> = ({
   );
 };
 
-interface HeroProps {
-  isDark: boolean;
-  toggleTheme: () => void;
-}
-
-export default function Hero({ isDark, toggleTheme }: HeroProps) {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const menuRef = useRef<HTMLDivElement>(null);
-  const buttonRef = useRef<HTMLButtonElement>(null);
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        isMenuOpen &&
-        menuRef.current &&
-        buttonRef.current &&
-        !menuRef.current.contains(event.target as Node) &&
-        !buttonRef.current.contains(event.target as Node)
-      ) {
-        setIsMenuOpen(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [isMenuOpen]);
-
-  const menuItems = [
-    { label: "HOME", href: "#", highlight: true },
-    { label: "ABOUT", href: "#about" },
-    { label: "SKILLS", href: "#skills" },
-    { label: "PROJECTS", href: "#projects" },
-    { label: "RESUME", href: "#resume" },
-    { label: "CONTACT", href: "#contact" },
-  ];
-
+export default function Hero() {
   return (
     <div 
       className="min-h-screen text-foreground transition-colors"
-      style={{
-        color: isDark ? "hsl(0 0% 100%)" : "hsl(0 0% 10%)",
-      }}
+      style={{ color: "hsl(0 0% 100%)" }}
     >
-      {/* Header */}
-      <header className="fixed top-0 left-0 right-0 z-50 px-6 py-6">
-        <nav className="flex items-center justify-between max-w-screen-2xl mx-auto">
-          {/* Menu Button */}
-          <div className="relative">
-            <button
-              ref={buttonRef}
-              type="button"
-              className="p-2 transition-colors duration-300 z-50 text-neutral-500 hover:text-black dark:hover:text-white"
-              aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-            >
-              {isMenuOpen ? (
-                <X className="w-8 h-8 transition-colors duration-300" strokeWidth={2} />
-              ) : (
-                <Menu className="w-8 h-8 transition-colors duration-300" strokeWidth={2} />
-              )}
-            </button>
-
-            {isMenuOpen && (
-              <div
-                ref={menuRef}
-                className="absolute top-full left-0 w-[200px] md:w-[240px] border-none shadow-2xl mt-2 ml-4 p-4 rounded-lg z-[100]"
-                style={{
-                  backgroundColor: isDark ? "hsl(0 0% 0%)" : "hsl(0 0% 98%)",
-                }}
-              >
-                {menuItems.map((item) => (
-                  <a
-                    key={item.label}
-                    href={item.href}
-                    className="block text-lg md:text-xl font-bold tracking-tight py-1.5 px-2 cursor-pointer transition-colors duration-300"
-                    style={{
-                      color: item.highlight ? "#C3E41D" : isDark ? "hsl(0 0% 100%)" : "hsl(0 0% 10%)",
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.color = "#C3E41D";
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.color = item.highlight ? "#C3E41D" : (isDark ? "hsl(0 0% 100%)" : "hsl(0 0% 10%)");
-                    }}
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    {item.label}
-                  </a>
-                ))}
-              </div>
-            )}
-          </div>
-
-          {/* Signature */}
-          <div className="text-4xl" style={{ color: isDark ? "hsl(0 0% 100%)" : "hsl(0 0% 10%)", fontFamily: "'Brush Script MT', 'Lucida Handwriting', cursive" }}>
-            K
-          </div>
-
-          {/* Theme Toggle */}
-          <button
-            type="button"
-            onClick={toggleTheme}
-            className="relative w-16 h-8 rounded-full hover:opacity-80 transition-opacity"
-            style={{ backgroundColor: isDark ? "hsl(0 0% 15%)" : "hsl(0 0% 90%)" }}
-            aria-label="Toggle theme"
-          >
-            <div
-              className="absolute top-1 left-1 w-6 h-6 rounded-full transition-transform duration-300"
-              style={{
-                backgroundColor: isDark ? "hsl(0 0% 100%)" : "hsl(0 0% 10%)",
-                transform: isDark ? "translateX(2rem)" : "translateX(0)",
-              }}
-            />
-          </button>
-        </nav>
-      </header>
-
       {/* Hero Section */}
       <main className="relative min-h-screen flex flex-col justify-center pt-20 pb-24 overflow-hidden">
-
         {/* Centered Main Name - Always Perfectly Centered */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full px-4">
           <div className="relative text-center">
@@ -228,8 +99,6 @@ export default function Hero({ isDark, toggleTheme }: HeroProps) {
                 style={{ color: "#C3E41D", fontFamily: "'Fira Code', monospace" }}
               />
             </div>
-
-
           </div>
         </div>
 
@@ -242,7 +111,7 @@ export default function Hero({ isDark, toggleTheme }: HeroProps) {
           className="absolute bottom-4 sm:bottom-6 md:bottom-8 left-1/2 -translate-x-1/2 transition-colors duration-300 z-30 pointer-events-auto"
           aria-label="Scroll down"
         >
-          <ChevronDown className="w-5 h-5 md:w-8 md:h-8 text-neutral-500 hover:text-black dark:hover:text-white transition-colors duration-300" />
+          <ChevronDown className="w-5 h-5 md:w-8 md:h-8 text-neutral-500 hover:text-white transition-colors duration-300" />
         </button>
       </main>
     </div>

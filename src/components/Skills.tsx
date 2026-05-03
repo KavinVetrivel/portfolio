@@ -1,20 +1,35 @@
-import { Code2, Cpu, Wrench } from 'lucide-react';
+import { Code2, Cpu, Wrench, Database, BrainCircuit, Terminal, Monitor } from 'lucide-react';
 
 const skillCategories = [
   {
     title: "Programming Languages",
     icon: <Code2 className="w-6 h-6 text-[#C3E41D]" />,
-    skills: ["Python", "C", "HTML", "CSS", "Java (Basics)", "SQL"]
-  },
-  {
-    title: "Technologies & Tools",
-    icon: <Wrench className="w-6 h-6 text-[#C3E41D]" />,
-    skills: ["Git", "VSCode", "Jupyter", "Tailwind CSS", "React"]
+    skills: ["Python", "C", "HTML", "CSS", "Java (Basics)", "SQL", "Cypher"]
   },
   {
     title: "Areas of Interest",
     icon: <Cpu className="w-6 h-6 text-[#C3E41D]" />,
     skills: ["Problem Solving", "Machine Learning", "Cyber Security"]
+  },
+  {
+    title: "Database Technologies",
+    icon: <Database className="w-6 h-6 text-[#C3E41D]" />,
+    skills: ["MySQL", "GrapDB-Neo4j", "MongoDB"]
+  },
+  {
+    title: "AI & Machine Learning",
+    icon: <BrainCircuit className="w-6 h-6 text-[#C3E41D]" />,
+    skills: ["NumPy", "Pandas", "Matplotlib", "Scikit-learn", "TensorFlow", "Keras", "LangChain"]
+  },
+  {
+    title: "Dev tools",
+    icon: <Terminal className="w-6 h-6 text-[#C3E41D]" />,
+    skills: ["VSCode", "Git", "Claude", "Jupyter Notebook"]
+  },
+  {
+    title: "Operating Systems",
+    icon: <Monitor className="w-6 h-6 text-[#C3E41D]" />,
+    skills: ["Windows", "Arch Linux", "Ubuntu"]
   }
 ];
 
@@ -30,7 +45,12 @@ export default function Skills() {
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         {skillCategories.map((cat, i) => (
-          <div key={i} className="group p-8 rounded-3xl bg-card border border-border shadow-sm hover:border-[#C3E41D]/50 transition-colors">
+          <div 
+            key={i} 
+            className={`group p-8 rounded-3xl bg-card border border-border shadow-sm hover:border-[#C3E41D]/50 transition-colors ${
+              skillCategories.length % 3 === 1 && i === skillCategories.length - 1 ? 'md:col-start-2' : ''
+            }`}
+          >
             <div className="w-12 h-12 rounded-2xl bg-secondary flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
               {cat.icon}
             </div>

@@ -1,4 +1,5 @@
 import { GraduationCap, Lightbulb } from 'lucide-react';
+import TiltedCard from './TiltedCard';
 
 export default function About() {
   return (
@@ -9,7 +10,8 @@ export default function About() {
             <span className="text-[#C3E41D]"></span> About Me
           </h2>
           <p className="text-lg text-muted-foreground leading-relaxed mb-8">
-            I'm a passionate <span className="text-foreground font-medium">B.E CSE AI&ML student</span> in my third year, deeply interested in problem solving, AI and machine learning. I love exploring new technologies and solving complex problems through code. When I'm not coding, you can find me learning new programming languages or working on personal projects.
+            Most of my code works… eventually.<br></br>
+            I’m a third-year AI & ML student who enjoys solving problems, exploring new technologies, and learning through building (and fixing) things.
           </p>
           
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -28,19 +30,29 @@ export default function About() {
         </div>
         
         <div className="w-full md:w-1/2 flex justify-center">
-          <div className="relative w-full max-w-md aspect-[4/5] rounded-3xl overflow-hidden border border-border bg-card p-2 shadow-xl">
-            <div className="w-full h-full rounded-2xl bg-neutral-900 flex items-center justify-center relative overflow-hidden group">
-               <img 
-                 src="/img/profile.png" 
-                 alt="Kavin Vetrivel G" 
-                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
-               />
-               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80 transition-opacity duration-500 group-hover:opacity-90"></div>
-               <div className="absolute bottom-0 left-0 right-0 p-8 z-10 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                 <p className="text-2xl font-bold tracking-tight text-white mb-1">Kavin Vetrivel G</p>
-                 <p className="text-[#C3E41D] font-medium">B.E CSE AIML Student</p>
-               </div>
-            </div>
+          <div className="w-full max-w-[360px]">
+            <TiltedCard
+              imageSrc="/img/profile.png"
+              altText="Kavin Vetrivel G"
+              captionText="Kavin Vetrivel G"
+              containerHeight="450px"
+              containerWidth="100%"
+              imageHeight="100%"
+              imageWidth="100%"
+              rotateAmplitude={12}
+              scaleOnHover={1.05}
+              showMobileWarning={false}
+              showTooltip={true}
+              displayOverlayContent={true}
+              overlayContent={
+                <div className="w-full h-full rounded-[15px] overflow-hidden group">
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80 transition-opacity duration-500 group-hover:opacity-90"></div>
+                  <div className="absolute bottom-0 left-0 right-0 p-8 z-10 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                    <p className="text-2xl font-bold tracking-tight text-white mb-1">Kavin Vetrivel G</p>
+                  </div>
+                </div>
+              }
+            />
           </div>
         </div>
       </div>
