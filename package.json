@@ -1,28 +1,43 @@
 {
-  "name": "kavin-vetrivel-portfolio",
-  "version": "1.0.0",
-  "description": "Personal portfolio website for Kavin Vetrivel - Software Developer and AIML Student",
-  "main": "index.html",
+  "name": "temp_app",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
   "scripts": {
-    "start": "python -m http.server 8000",
-    "serve": "npx serve .",
-    "dev": "python -m http.server 8000"
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
   },
-  "keywords": [
-    "portfolio",
-    "personal-website",
-    "developer",
-    "aiml",
-    "responsive",
-    "modern"
-  ],
-  "author": "Kavin Vetrivel",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/kavin-vetrivel/portfolio.git"
+  "dependencies": {
+    "@react-three/fiber": "^9.6.1",
+    "@react-three/postprocessing": "^3.0.4",
+    "@tailwindcss/vite": "^4.2.4",
+    "clsx": "^2.1.1",
+    "lucide-react": "^1.14.0",
+    "postprocessing": "^6.39.1",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5",
+    "react-icons": "^5.6.0",
+    "tailwind-merge": "^3.5.0",
+    "tailwindcss-animate": "^1.0.7",
+    "three": "^0.184.0"
   },
-  "homepage": "https://kavin-vetrivel.github.io/portfolio",
-  "devDependencies": {},
-  "dependencies": {}
-} 
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^24.12.2",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.1",
+    "autoprefixer": "^10.5.0",
+    "eslint": "^10.2.1",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-react-refresh": "^0.5.2",
+    "globals": "^17.5.0",
+    "postcss": "^8.5.13",
+    "tailwindcss": "^4.2.4",
+    "typescript": "~6.0.2",
+    "typescript-eslint": "^8.58.2",
+    "vite": "^8.0.10"
+  }
+}

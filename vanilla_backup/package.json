@@ -1,0 +1,28 @@
+{
+  "name": "kavin-vetrivel-portfolio",
+  "version": "1.0.0",
+  "description": "Personal portfolio website for Kavin Vetrivel - Software Developer and AIML Student",
+  "main": "index.html",
+  "scripts": {
+    "start": "python -m http.server 8000",
+    "serve": "npx serve .",
+    "dev": "python -m http.server 8000"
+  },
+  "keywords": [
+    "portfolio",
+    "personal-website",
+    "developer",
+    "aiml",
+    "responsive",
+    "modern"
+  ],
+  "author": "Kavin Vetrivel",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kavin-vetrivel/portfolio.git"
+  },
+  "homepage": "https://kavin-vetrivel.github.io/portfolio",
+  "devDependencies": {},
+  "dependencies": {}
+} 
