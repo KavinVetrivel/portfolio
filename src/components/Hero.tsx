@@ -1,72 +1,5 @@
-import React, { useState, useEffect, useRef, useMemo } from "react";
 import { ChevronDown } from "lucide-react";
-
-// BlurText animation component
-interface BlurTextProps {
-  text: string;
-  delay?: number;
-  animateBy?: "words" | "letters";
-  direction?: "top" | "bottom";
-  className?: string;
-  style?: React.CSSProperties;
-}
-
-const BlurText: React.FC<BlurTextProps> = ({
-  text,
-  delay = 50,
-  animateBy = "words",
-  direction = "top",
-  className = "",
-  style,
-}) => {
-  const [inView, setInView] = useState(false);
-  const ref = useRef<HTMLParagraphElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setInView(true);
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    if (ref.current) {
-      observer.observe(ref.current);
-    }
-
-    return () => {
-      if (ref.current) {
-        observer.unobserve(ref.current);
-      }
-    };
-  }, []);
-
-  const segments = useMemo(() => {
-    return animateBy === "words" ? text.split(" ") : text.split("");
-  }, [text, animateBy]);
-
-  return (
-    <p ref={ref} className={`inline-flex flex-wrap ${className}`} style={style}>
-      {segments.map((segment, i) => (
-        <span
-          key={i}
-          style={{
-            display: "inline-block",
-            filter: inView ? "blur(0px)" : "blur(10px)",
-            opacity: inView ? 1 : 0,
-            transform: inView ? "translateY(0)" : `translateY(${direction === "top" ? "-20px" : "20px"})`,
-            transition: `all 0.5s ease-out ${i * delay}ms`,
-          }}
-        >
-          {segment}
-          {animateBy === "words" && i < segments.length - 1 ? "\u00A0" : ""}
-        </span>
-      ))}
-    </p>
-  );
-};
+import TextPressure from "./TextPressure.jsx";
 
 export default function Hero() {
   return (
@@ -78,25 +11,35 @@ export default function Hero() {
       <main className="relative min-h-screen flex flex-col justify-center pt-20 pb-24 overflow-hidden">
         {/* Centered Main Name - Always Perfectly Centered */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full px-4">
-          <div className="relative text-center">
-            <div>
-              <BlurText
+          <div className="relative mx-auto flex w-full max-w-6xl flex-col items-center justify-center gap-1 sm:gap-2 text-center">
+            <div className="w-full h-[120px] sm:h-[160px] md:h-[220px]">
+              <TextPressure
                 text="KAVIN"
-                delay={100}
-                animateBy="letters"
-                direction="top"
-                className="font-bold text-[80px] sm:text-[120px] md:text-[160px] lg:text-[200px] leading-[0.75] tracking-tighter uppercase justify-center whitespace-nowrap"
-                style={{ color: "#C3E41D", fontFamily: "'Fira Code', monospace" }}
+                flex={false}
+                alpha={false}
+                stroke={false}
+                width={false}
+                weight={true}
+                italic={false}
+                textColor="#C3E41D"
+                strokeColor="#ffffff"
+                minFontSize={300}
+                className="w-full h-full"
               />
             </div>
-            <div className="mt-2 md:mt-4">
-              <BlurText
+            <div className="w-full h-[20px] sm:h-[160px] md:h-[220px]">
+              <TextPressure
                 text="VETRIVEL"
-                delay={100}
-                animateBy="letters"
-                direction="top"
-                className="font-bold text-[80px] sm:text-[120px] md:text-[160px] lg:text-[200px] leading-[0.75] tracking-tighter uppercase justify-center whitespace-nowrap"
-                style={{ color: "#C3E41D", fontFamily: "'Fira Code', monospace" }}
+                flex={false}
+                alpha={false}
+                stroke={false}
+                width={false}
+                weight={true}
+                italic={false}
+                textColor="#C3E41D"
+                strokeColor="#ffffff"
+                minFontSize={300}
+                className="w-full h-full"
               />
             </div>
           </div>

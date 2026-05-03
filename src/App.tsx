@@ -5,7 +5,7 @@ import Skills from './components/Skills'
 import Projects from './components/Projects'
 import Contact from './components/Contact'
 import Dither from './components/Dither'
-import StaggeredMenu from './components/StaggeredMenu'
+import StaggeredMenu from './components/StaggeredMenu.jsx'
 
 const navItems = [
   { label: 'Home', link: '#hero', ariaLabel: 'Home' },

@@ -1,7 +1,9 @@
 import { GraduationCap, Lightbulb } from 'lucide-react';
-import TiltedCard from './TiltedCard';
+import TiltedCard from './TiltedCard.jsx';
 
 export default function About() {
+  const profileImageSrc = `${import.meta.env.BASE_URL}img/profile.png`;
+
   return (
     <section id="about" className="py-24 px-6 md:px-12 max-w-7xl mx-auto">
       <div className="flex flex-col md:flex-row gap-12 items-center">
@@ -32,7 +34,7 @@ export default function About() {
         <div className="w-full md:w-1/2 flex justify-center">
           <div className="w-full max-w-[360px]">
             <TiltedCard
-              imageSrc="/img/profile.png"
+              imageSrc={profileImageSrc}
               altText="Kavin Vetrivel G"
               captionText="Kavin Vetrivel G"
               containerHeight="450px"
