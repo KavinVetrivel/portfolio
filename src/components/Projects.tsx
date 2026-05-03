@@ -36,7 +36,7 @@ export default function Projects() {
           <h2 className="text-3xl md:text-5xl font-bold tracking-tighter mb-4 text-foreground">
             <span className="text-[#C3E41D]"></span> Featured Projects
           </h2>
-          <p className="text-muted-foreground max-w-2xl">Some of the things I've built to solve real problems and learn new technologies.</p>
+          <p className="text-muted-foreground max-w-2xl">Some of the stuff I've built</p>
         </div>
         <a href="https://github.com/KavinVetrivel" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm font-bold hover:text-[#C3E41D] transition-colors">
           View all on GitHub <FaGithub className="w-4 h-4" />
