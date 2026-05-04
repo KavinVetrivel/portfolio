@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import Hero from './components/Hero'
 import About from './components/About'
 import Skills from './components/Skills'
@@ -22,8 +22,21 @@ const socialItems = [
 ];
 
 function App() {
+  const [showMenu, setShowMenu] = useState(true);
+
   useEffect(() => {
     document.documentElement.classList.add("dark");
+  }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      // Hide menu when scrolled past the hero section (approximately 80vh)
+      const heroHeight = window.innerHeight * 0.8;
+      setShowMenu(window.scrollY < heroHeight);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
@@ -47,20 +60,22 @@ function App() {
 
       {/* Content wrapper */}
       <div className="relative z-10">
-        <StaggeredMenu 
-          position="right"
-          items={navItems}
-          socialItems={socialItems}
-          displaySocials={true}
-          displayItemNumbering={true}
-          menuButtonColor="#ffffff"
-          openMenuButtonColor="#111111"
-          changeMenuColorOnOpen={true}
-          colors={['#C3E41D', '#1a1a1a']}
-          logoUrl=""
-          accentColor="#C3E41D"
-          isFixed={true}
-        />
+        {showMenu && (
+          <StaggeredMenu 
+            position="right"
+            items={navItems}
+            socialItems={socialItems}
+            displaySocials={true}
+            displayItemNumbering={true}
+            menuButtonColor="#ffffff"
+            openMenuButtonColor="#111111"
+            changeMenuColorOnOpen={true}
+            colors={['#C3E41D', '#1a1a1a']}
+            logoUrl=""
+            accentColor="#C3E41D"
+            isFixed={true}
+          />
+        )}
         <Hero />
         <About />
         <Skills />

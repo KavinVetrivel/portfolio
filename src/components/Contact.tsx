@@ -24,33 +24,33 @@ export default function Contact() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start relative z-10">
           <div className="space-y-8">
-            <a href="mailto:vetrivelkavin5@gmail.com" className="flex items-center gap-6 group">
-              <div className="w-14 h-14 rounded-2xl bg-secondary flex items-center justify-center group-hover:bg-[#C3E41D] group-hover:text-black transition-colors border border-border">
+            <a href="mailto:vetrivelkavin5@gmail.com" className="flex items-start gap-6 group">
+              <div className="w-14 h-14 rounded-2xl bg-secondary flex items-center justify-center flex-shrink-0 group-hover:bg-[#C3E41D] group-hover:text-black transition-colors border border-border">
                 <Mail className="w-6 h-6" />
               </div>
-              <div>
-                <p className="text-sm text-muted-foreground mb-1 font-mono">Mail me, I will definitely reply</p>
+              <div className="flex-1 pt-1">
+                <p className="text-sm text-muted-foreground mb-1 font-mono">Mail me, I will definitely reply asap</p>
                 <p className="text-lg font-medium text-foreground group-hover:text-[#C3E41D] transition-colors break-all">vetrivelkavin5@gmail.com</p>
               </div>
             </a>
             
-            <a href="https://www.linkedin.com/in/kavin-vetrivel-g-6a119928a/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-6 group">
-              <div className="w-14 h-14 rounded-2xl bg-secondary flex items-center justify-center group-hover:bg-[#C3E41D] group-hover:text-black transition-colors border border-border">
+            <a href="https://www.linkedin.com/in/kavin-vetrivel-g-6a119928a/" target="_blank" rel="noopener noreferrer" className="flex items-start gap-6 group">
+              <div className="w-14 h-14 rounded-2xl bg-secondary flex items-center justify-center flex-shrink-0 group-hover:bg-[#C3E41D] group-hover:text-black transition-colors border border-border">
                 <FaLinkedin className="w-6 h-6" />
               </div>
-              <div>
+              <div className="flex-1 pt-1">
                 <p className="text-sm text-muted-foreground mb-1 font-mono">I will probably reply within a working week, jk, i would prefer you to mail me</p>
                 <p className="text-lg font-medium text-foreground group-hover:text-[#C3E41D] transition-colors">Kavin Vetrivel</p>
               </div>
             </a>
             
-            <a href="https://github.com/KavinVetrivel" target="_blank" rel="noopener noreferrer" className="flex items-center gap-6 group">
-              <div className="w-14 h-14 rounded-2xl bg-secondary flex items-center justify-center group-hover:bg-[#C3E41D] group-hover:text-black transition-colors border border-border">
+            <a href="https://github.com/KavinVetrivel" target="_blank" rel="noopener noreferrer" className="flex items-start gap-6 group">
+              <div className="w-14 h-14 rounded-2xl bg-secondary flex items-center justify-center flex-shrink-0 group-hover:bg-[#C3E41D] group-hover:text-black transition-colors border border-border">
                 <FaGithub className="w-6 h-6" />
               </div>
-              <div>
+              <div className="flex-1 pt-1">
                 <p className="text-sm text-muted-foreground mb-1 font-mono">GitHub - please dont judge me</p>
                 <p className="text-lg font-medium text-foreground group-hover:text-[#C3E41D] transition-colors">@KavinVetrivel</p>
               </div>
