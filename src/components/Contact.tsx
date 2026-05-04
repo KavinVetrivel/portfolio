@@ -11,10 +11,10 @@ export default function Contact() {
         
         <div className="relative z-10 text-center mb-12">
           <h2 className="text-3xl md:text-5xl font-bold tracking-tighter mb-4 text-foreground">
-            Get In Touch
+            Talk to me
           </h2>
           <p className="text-muted-foreground max-w-xl mx-auto text-lg">
-            Whether you have a question, a project idea, or just want to say hi, I'll try my best to get back to you!
+            If you find any stuff wrong or not working or weird looking, let me know ╥﹏╥
           </p>
           
           <div className="mt-8" id="resume">
@@ -31,17 +31,17 @@ export default function Contact() {
                 <Mail className="w-6 h-6" />
               </div>
               <div>
-                <p className="text-sm text-muted-foreground mb-1 font-mono">Email</p>
+                <p className="text-sm text-muted-foreground mb-1 font-mono">Mail me, I will definitely reply</p>
                 <p className="text-lg font-medium text-foreground group-hover:text-[#C3E41D] transition-colors break-all">vetrivelkavin5@gmail.com</p>
               </div>
             </a>
             
-            <a href="https://www.linkedin.com/in/kavin-vetrivel-6a119928a/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-6 group">
+            <a href="https://www.linkedin.com/in/kavin-vetrivel-g-6a119928a/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-6 group">
               <div className="w-14 h-14 rounded-2xl bg-secondary flex items-center justify-center group-hover:bg-[#C3E41D] group-hover:text-black transition-colors border border-border">
                 <FaLinkedin className="w-6 h-6" />
               </div>
               <div>
-                <p className="text-sm text-muted-foreground mb-1 font-mono">LinkedIn</p>
+                <p className="text-sm text-muted-foreground mb-1 font-mono">I will probably reply within a working week, jk, i would prefer you to mail me</p>
                 <p className="text-lg font-medium text-foreground group-hover:text-[#C3E41D] transition-colors">Kavin Vetrivel</p>
               </div>
             </a>
@@ -51,7 +51,7 @@ export default function Contact() {
                 <FaGithub className="w-6 h-6" />
               </div>
               <div>
-                <p className="text-sm text-muted-foreground mb-1 font-mono">GitHub</p>
+                <p className="text-sm text-muted-foreground mb-1 font-mono">GitHub - please dont judge me</p>
                 <p className="text-lg font-medium text-foreground group-hover:text-[#C3E41D] transition-colors">@KavinVetrivel</p>
               </div>
             </a>
@@ -67,19 +67,19 @@ export default function Contact() {
               <input type="email" id="email" className="w-full px-4 py-3 rounded-xl bg-secondary/50 border border-border focus:border-[#C3E41D] focus:ring-1 focus:ring-[#C3E41D] outline-none transition-all text-foreground" placeholder="john@example.com" />
             </div>
             <div className="space-y-2">
-              <label htmlFor="message" className="text-sm font-medium text-foreground">Message</label>
+              <label htmlFor="message" className="text-sm font-medium text-foreground">What's up?</label>
               <textarea id="message" rows={4} className="w-full px-4 py-3 rounded-xl bg-secondary/50 border border-border focus:border-[#C3E41D] focus:ring-1 focus:ring-[#C3E41D] outline-none transition-all text-foreground resize-none" placeholder="Hello..."></textarea>
             </div>
             <button className="w-full py-4 rounded-xl bg-foreground text-background font-bold flex items-center justify-center gap-2 hover:bg-[#C3E41D] hover:text-black transition-colors">
-              Send Message <Send className="w-4 h-4" />
+              Just mail me through gmail man <Send className="w-4 h-4" />
             </button>
           </form>
         </div>
       </div>
       
       <footer className="mt-24 text-center text-sm text-muted-foreground font-mono">
-        <p>&copy; {new Date().getFullYear()} Kavin Vetrivel. All rights reserved.</p>
-        <p className="mt-2">Built with React & Tailwind CSS.</p>
+        <p>&copy; {new Date().getFullYear()} Kavin Vetrivel G. All rights reserved.</p>
+        <p className="mt-2">Built with React, Tailwind CSS and you-know-what.</p>
       </footer>
     </section>
   );
