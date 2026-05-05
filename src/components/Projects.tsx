@@ -26,6 +26,15 @@ const projects = [
     live: "https://repora.vercel.app/",
     featured: false
   }
+  ,
+  {
+    title: "Movie Graph",
+    description: "A Neo4j-powered movie knowledge graph project that loads TMDB data into graph relationships and exposes searchable FastAPI endpoints for movie details, actor info, genre browsing, and recommendations.",
+    tags: ["Neo4j", "FastAPI", "TMDB", "GraphDB"],
+    github: "https://github.com/KavinVetrivel/movie-graph",
+    live: "https://kavinvetrivel.github.io/movie-graph/",
+    featured: false
+  }
 ];
 
 export default function Projects() {
@@ -45,35 +54,37 @@ export default function Projects() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {projects.map((project, i) => (
-          <div key={i} className={`group flex flex-col justify-between p-8 rounded-3xl bg-card border border-border shadow-sm hover:-translate-y-2 transition-transform duration-300 ${project.featured ? 'md:col-span-2 lg:col-span-1 bg-gradient-to-br from-card to-neutral-50 dark:to-neutral-900/50' : ''}`}>
-            <div>
-              <div className="flex justify-between items-center mb-8">
-                <Folder className="w-10 h-10 text-[#C3E41D]" />
-                <div className="flex gap-4">
-                  {project.github && project.github !== "#" && (
-                    <a href={project.github} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition-colors">
-                      <FaGithub className="w-6 h-6" />
-                    </a>
-                  )}
-                  {project.live && project.live !== "#" && (
-                    <a href={project.live} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition-colors">
-                      <ExternalLink className="w-6 h-6" />
-                    </a>
-                  )}
+          <div key={i} className={`${project.title === 'Movie Graph' ? 'md:col-span-2 lg:col-span-3 flex justify-center items-stretch h-full' : 'h-full'}`}>
+            <div className={`group flex flex-col justify-between h-full p-8 rounded-3xl bg-card border border-border shadow-sm hover:-translate-y-2 transition-transform duration-300 ${project.featured ? 'md:col-span-2 lg:col-span-1 bg-gradient-to-br from-card to-neutral-50 dark:to-neutral-900/50' : ''} ${project.title === 'Movie Graph' ? 'w-full max-w-2xl' : ''}`}>
+              <div>
+                <div className="flex justify-between items-center mb-8">
+                  <Folder className="w-10 h-10 text-[#C3E41D]" />
+                  <div className="flex gap-4">
+                    {project.github && project.github !== "#" && (
+                      <a href={project.github} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition-colors">
+                        <FaGithub className="w-6 h-6" />
+                      </a>
+                    )}
+                    {project.live && project.live !== "#" && (
+                      <a href={project.live} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition-colors">
+                        <ExternalLink className="w-6 h-6" />
+                      </a>
+                    )}
+                  </div>
                 </div>
+                <h3 className="text-2xl font-bold mb-4 text-foreground group-hover:text-[#C3E41D] transition-colors">{project.title}</h3>
+                <p className="text-muted-foreground mb-8 leading-relaxed">
+                  {project.description}
+                </p>
               </div>
-              <h3 className="text-2xl font-bold mb-4 text-foreground group-hover:text-[#C3E41D] transition-colors">{project.title}</h3>
-              <p className="text-muted-foreground mb-8 leading-relaxed">
-                {project.description}
-              </p>
-            </div>
-            
-            <div className="flex flex-wrap gap-2 mt-auto">
-              {project.tags.map((tag, j) => (
-                <span key={j} className="text-xs font-mono text-muted-foreground tracking-tight">
-                  {tag} {j < project.tags.length - 1 && <span className="mx-1 opacity-50">•</span>}
-                </span>
-              ))}
+              
+              <div className="flex flex-wrap gap-2 mt-auto">
+                {project.tags.map((tag, j) => (
+                  <span key={j} className="text-xs font-mono text-muted-foreground tracking-tight">
+                    {tag} {j < project.tags.length - 1 && <span className="mx-1 opacity-50">•</span>}
+                  </span>
+                ))}
+              </div>
             </div>
           </div>
         ))}
