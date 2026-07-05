@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState, useMemo, useCallback } from 'react';
-import './TextPressure.css';
 
 const dist = (a, b) => {
   const dx = b.x - a.x;
@@ -24,8 +23,8 @@ const debounce = (func, delay) => {
 
 const TextPressure = ({
   text = 'Compressa',
-  fontFamily = 'Compressa VF',
-  fontUrl = 'https://res.cloudinary.com/dr6lvwubh/raw/upload/v1529908256/CompressaPRO-GX.woff2',
+  fontFamily = 'Roboto Flex',
+  fontUrl = 'https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,25..151,100..1000&display=swap',
   width = true,
   weight = true,
   italic = true,
@@ -36,8 +35,7 @@ const TextPressure = ({
   textColor = '#FFFFFF',
   strokeColor = '#FF0000',
   className = '',
-  minFontSize = 24,
-  mobileMinFontSize = 72
+  minFontSize = 24
 }) => {
   const containerRef = useRef(null);
   const titleRef = useRef(null);
@@ -45,31 +43,14 @@ const TextPressure = ({
 
   const mouseRef = useRef({ x: 0, y: 0 });
   const cursorRef = useRef({ x: 0, y: 0 });
-  const touchActiveRef = useRef(false);
-  const motionPhaseRef = useRef(0);
 
   const [fontSize, setFontSize] = useState(minFontSize);
   const [scaleY, setScaleY] = useState(1);
   const [lineHeight, setLineHeight] = useState(1);
-  const [isTouchDevice, setIsTouchDevice] = useState(false);
 
   const chars = text.split('');
 
   useEffect(() => {
-    const mediaQuery = window.matchMedia('(hover: none) and (pointer: coarse)');
-
-    const updateTouchDevice = () => {
-      setIsTouchDevice(mediaQuery.matches);
-    };
-
-    updateTouchDevice();
-
-    if (mediaQuery.addEventListener) {
-      mediaQuery.addEventListener('change', updateTouchDevice);
-    } else {
-      mediaQuery.addListener(updateTouchDevice);
-    }
-
     const handleMouseMove = e => {
       cursorRef.current.x = e.clientX;
       cursorRef.current.y = e.clientY;
@@ -84,9 +65,9 @@ const TextPressure = ({
     window.addEventListener('touchmove', handleTouchMove, { passive: true });
 
     if (containerRef.current) {
-      const { left, top, width: containerWidth, height: containerHeight } = containerRef.current.getBoundingClientRect();
-      mouseRef.current.x = left + containerWidth / 2;
-      mouseRef.current.y = top + containerHeight / 2;
+      const { left, top, width, height } = containerRef.current.getBoundingClientRect();
+      mouseRef.current.x = left + width / 2;
+      mouseRef.current.y = top + height / 2;
       cursorRef.current.x = mouseRef.current.x;
       cursorRef.current.y = mouseRef.current.y;
     }
@@ -94,93 +75,16 @@ const TextPressure = ({
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('touchmove', handleTouchMove);
-
-      if (mediaQuery.removeEventListener) {
-        mediaQuery.removeEventListener('change', updateTouchDevice);
-      } else {
-        mediaQuery.removeListener(updateTouchDevice);
-      }
     };
   }, []);
-
-  const resetToCenter = useCallback(() => {
-    if (!containerRef.current) return;
-
-    const { left, top, width: containerWidth, height: containerHeight } = containerRef.current.getBoundingClientRect();
-    const centerX = left + containerWidth / 2;
-    const centerY = top + containerHeight / 2;
-
-    mouseRef.current.x = centerX;
-    mouseRef.current.y = centerY;
-    cursorRef.current.x = centerX;
-    cursorRef.current.y = centerY;
-  }, []);
-
-  const updateTouchPosition = useCallback(
-    event => {
-      if (!isTouchDevice) return;
-
-      touchActiveRef.current = true;
-      cursorRef.current.x = event.clientX;
-      cursorRef.current.y = event.clientY;
-      mouseRef.current.x = event.clientX;
-      mouseRef.current.y = event.clientY;
-    },
-    [isTouchDevice]
-  );
-
-  const handlePointerDown = useCallback(
-    event => {
-      if (!isTouchDevice || (event.pointerType !== 'touch' && event.pointerType !== 'pen')) return;
-
-      updateTouchPosition(event);
-
-      if (event.currentTarget.setPointerCapture) {
-        try {
-          event.currentTarget.setPointerCapture(event.pointerId);
-        } catch {
-          // Ignore capture failures on browsers that restrict it.
-        }
-      }
-    },
-    [isTouchDevice, updateTouchPosition]
-  );
-
-  const handlePointerMove = useCallback(
-    event => {
-      if (!isTouchDevice || (event.pointerType !== 'touch' && event.pointerType !== 'pen')) return;
-
-      updateTouchPosition(event);
-    },
-    [isTouchDevice, updateTouchPosition]
-  );
-
-  const handlePointerUp = useCallback(
-    event => {
-      if (!isTouchDevice || (event.pointerType !== 'touch' && event.pointerType !== 'pen')) return;
-
-      if (event.currentTarget.releasePointerCapture) {
-        try {
-          event.currentTarget.releasePointerCapture(event.pointerId);
-        } catch {
-          // Ignore capture failures on browsers that no longer own the pointer.
-        }
-      }
-
-      touchActiveRef.current = false;
-      resetToCenter();
-    },
-    [isTouchDevice, resetToCenter]
-  );
 
   const setSize = useCallback(() => {
     if (!containerRef.current || !titleRef.current) return;
 
     const { width: containerW, height: containerH } = containerRef.current.getBoundingClientRect();
-    const effectiveMinFontSize = isTouchDevice ? mobileMinFontSize : minFontSize;
 
-    let newFontSize = containerW / 12;
-    newFontSize = Math.max(newFontSize, effectiveMinFontSize);
+    let newFontSize = containerW / (chars.length / 2);
+    newFontSize = Math.max(newFontSize, minFontSize);
 
     setFontSize(newFontSize);
     setScaleY(1);
@@ -196,7 +100,7 @@ const TextPressure = ({
         setLineHeight(yRatio);
       }
     });
-  }, [chars.length, isTouchDevice, minFontSize, mobileMinFontSize, scale]);
+  }, [chars.length, minFontSize, scale]);
 
   useEffect(() => {
     const debouncedSetSize = debounce(setSize, 100);
@@ -208,18 +112,6 @@ const TextPressure = ({
   useEffect(() => {
     let rafId;
     const animate = () => {
-      if (isTouchDevice && !touchActiveRef.current && containerRef.current) {
-        const { left, top, width: containerWidth, height: containerHeight } = containerRef.current.getBoundingClientRect();
-        const centerX = left + containerWidth / 2;
-        const centerY = top + containerHeight / 2;
-        const motionRadiusX = containerWidth * 0.08;
-        const motionRadiusY = containerHeight * 0.03;
-
-        motionPhaseRef.current += 0.01;
-        cursorRef.current.x = centerX + Math.sin(motionPhaseRef.current) * motionRadiusX;
-        cursorRef.current.y = centerY + Math.cos(motionPhaseRef.current * 1.3) * motionRadiusY;
-      }
-
       mouseRef.current.x += (cursorRef.current.x - mouseRef.current.x) / 15;
       mouseRef.current.y += (cursorRef.current.y - mouseRef.current.y) / 15;
 
@@ -263,22 +155,19 @@ const TextPressure = ({
 
   const styleElement = useMemo(() => {
     return (
-      <style>{`        @font-face {
-          font-family: '${fontFamily}';
-          src: url('${fontUrl}');
-          font-style: normal;
-        }
+      <style>{`
+        @import url('${fontUrl}');
 
-        .text-pressure-flex {
+        .flex {
           display: flex;
           justify-content: space-between;
         }
 
-        .text-pressure-stroke span {
+        .stroke span {
           position: relative;
           color: ${textColor};
         }
-        .text-pressure-stroke span::after {
+        .stroke span::after {
           content: attr(data-char);
           position: absolute;
           left: 0;
@@ -296,17 +185,17 @@ const TextPressure = ({
     );
   }, [fontFamily, fontUrl, textColor, strokeColor]);
 
-  const dynamicClassName = [className, flex ? 'text-pressure-flex' : '', stroke ? 'text-pressure-stroke' : ''].filter(Boolean).join(' ');
+  const dynamicClassName = [className, flex ? 'flex' : '', stroke ? 'stroke' : ''].filter(Boolean).join(' ');
 
   return (
     <div
       ref={containerRef}
-      className="text-pressure-container"
-      style={{ touchAction: isTouchDevice ? 'pan-y' : 'auto' }}
-      onPointerDown={handlePointerDown}
-      onPointerMove={handlePointerMove}
-      onPointerUp={handlePointerUp}
-      onPointerCancel={handlePointerUp}
+      style={{
+        position: 'relative',
+        width: '100%',
+        height: '100%',
+        background: 'transparent'
+      }}
     >
       {styleElement}
       <h1

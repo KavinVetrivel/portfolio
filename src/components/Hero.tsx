@@ -8,37 +8,39 @@ export default function Hero() {
       style={{ color: "hsl(0 0% 100%)" }}
     >
       {/* Hero Section */}
-      <main className="relative min-h-screen flex flex-col justify-center pt-20 pb-24 overflow-hidden">
-        {/* Centered Main Name - Always Perfectly Centered */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full px-4">
-          <div className="relative mx-auto flex w-full max-w-6xl flex-col items-center justify-center gap-1 sm:gap-2 text-center">
-            <div className="w-full h-[120px] sm:h-[160px] md:h-[220px]">
+      <main className="relative min-h-screen overflow-hidden px-4 pt-16 pb-40 sm:px-6 sm:pb-48 lg:px-8 lg:pb-56">
+        {/* Full-screen text treatment */}
+        <div className="absolute inset-0 flex items-center justify-center px-4 py-8 sm:py-12">
+          <div className="relative flex h-[70vh] w-full max-w-[1500px] translate-y-0 sm:h-[78vh] sm:-translate-y-12 flex-col items-center justify-center gap-2 sm:gap-4 text-center">
+            <div className="flex h-[16vh] min-h-[96px] w-full max-w-[86vw] items-center justify-center -mt-1 sm:h-[22vh] sm:min-h-[130px] sm:max-w-[900px] sm:-mt-8">
               <TextPressure
                 text="KAVIN"
-                flex={false}
+                flex
                 alpha={false}
                 stroke={false}
-                width={false}
-                weight={true}
+                width
+                weight
                 italic={false}
                 textColor="#C3E41D"
-                strokeColor="#ffffff"
-                minFontSize={300}
+                strokeColor="#5227FF"
+                scale
+                minFontSize={28}
                 className="w-full h-full"
               />
             </div>
-            <div className="w-full h-[20px] sm:h-[160px] md:h-[220px]">
+            <div className="flex h-[18vh] min-h-[110px] w-full max-w-[92vw] items-center justify-center -mt-1 sm:h-[22vh] sm:min-h-[200px] sm:max-w-[1450px] sm:mt-0 sm:gap-2">
               <TextPressure
                 text="VETRIVEL"
-                flex={false}
+                flex
                 alpha={false}
                 stroke={false}
-                width={false}
-                weight={true}
+                width
+                weight
                 italic={false}
                 textColor="#C3E41D"
-                strokeColor="#ffffff"
-                minFontSize={300}
+                strokeColor="#5227FF"
+                scale
+                minFontSize={28}
                 className="w-full h-full"
               />
             </div>
