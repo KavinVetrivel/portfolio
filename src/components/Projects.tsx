@@ -54,8 +54,8 @@ export default function Projects() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {projects.map((project, i) => (
-          <div key={i} className={`${project.title === 'Movie Graph' ? 'md:col-span-2 lg:col-span-3 flex justify-center items-stretch h-full' : 'h-full'}`}>
-            <div className={`group flex flex-col justify-between h-full p-8 rounded-3xl bg-card border border-border shadow-sm hover:-translate-y-2 transition-transform duration-300 ${project.featured ? 'md:col-span-2 lg:col-span-1 bg-gradient-to-br from-card to-neutral-50 dark:to-neutral-900/50' : ''} ${project.title === 'Movie Graph' ? 'w-full max-w-2xl' : ''}`}>
+          <div key={i} className={`${project.title === 'Movie Graph' ? 'col-span-full flex justify-center' : 'h-full'}`}>
+            <div className={`group flex flex-col justify-between h-full p-8 rounded-3xl bg-card border border-border shadow-sm hover:-translate-y-2 transition-transform duration-300 ${project.featured ? 'md:col-span-2 lg:col-span-1 bg-gradient-to-br from-card to-neutral-50 dark:to-neutral-900/50' : ''} ${project.title === 'Movie Graph' ? 'w-full max-w-3xl mx-auto' : ''}`}>
               <div>
                 <div className="flex justify-between items-center mb-8">
                   <Folder className="w-10 h-10 text-[#C3E41D]" />

@@ -113,6 +113,16 @@ const skillCategories = [
 ];
 
 export default function Skills() {
+  const getSkillGridClass = (skills: string[], index: number) => {
+    const remainder = skills.length % 3;
+
+    if (remainder === 1 && index === skills.length - 1) {
+      return 'md:col-start-2';
+    }
+
+    return '';
+  };
+
   return (
     <section id="skills" className="py-24 px-6 md:px-12 max-w-7xl mx-auto border-t border-border/50">
       <div className="text-center mb-16">
@@ -134,10 +144,12 @@ export default function Skills() {
               {cat.icon}
             </div>
             <h3 className="text-2xl font-bold mb-6 text-foreground">{cat.title}</h3>
-            <div className="flex flex-wrap gap-4 items-center justify-center">
+            <div className="grid grid-cols-3 gap-4 place-items-center justify-center">
               {cat.skills.map((skill, j) => (
-                <div key={j} className="flex flex-col items-center justify-center gap-2 w-16 h-16 p-2 rounded-2xl bg-secondary hover:bg-[#C3E41D] hover:text-black transition-colors cursor-default border border-border/50 group/skill" title={skill}>
-                  {skillIcons[skill] || <span className="w-6 h-6 flex items-center justify-center text-xs font-bold">{skill.charAt(0)}</span>}
+                <div key={j} className={`flex flex-col items-center justify-center gap-2 w-16 h-16 p-2 rounded-2xl bg-secondary hover:bg-[#C3E41D] hover:text-black transition-colors cursor-default border border-border/50 group/skill text-center ${getSkillGridClass(cat.skills, j)}`} title={skill}>
+                  <span className="flex h-8 w-8 items-center justify-center leading-none shrink-0">
+                    {skillIcons[skill] || <span className="flex h-6 w-6 items-center justify-center text-xs font-bold">{skill.charAt(0)}</span>}
+                  </span>
                   {!iconOnlySkills.has(skill) && (
                     <span className="text-xs font-medium text-center line-clamp-2 break-words">{skill}</span>
                   )}
